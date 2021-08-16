@@ -1,0 +1,67 @@
+extends layout
+block content
+
+  h1 Database
+  br
+
+  each task in tasks
+    - var counter = 0;
+    form(action="/completetask" method="post")
+          table.table.table-striped.table-bordered
+              thead
+              tr
+                  each f in Object.keys(task)
+                      unless f == "completed" || f == "id" || f == "_rid" || f == "_self" || f == "_etag" || f == "_attachments" || f == "_ts"
+                          - var defn = f.toString().indexOf("Definition");
+                          - var desc = f.toString().indexOf("Description");
+                          #{console.log(defn)}
+                          #{console.log(desc)}
+                          if defn > -1
+                              th #{task[f]}
+                          else if desc > -1
+                          else
+                              th #{f}
+                          //-#{console.log(f)}
+                  th Edit
+                  th Delete
+              tbody
+              tr
+                  #columns
+                      each f in Object.keys(task)
+                          unless  f == "completed" || f == "id" || f == "_rid" || f == "_self" || f == "_etag" || f == "_attachments" || f == "_ts"
+                              - var defn = f.toString().indexOf("Definition");
+                              - var desc = f.toString().indexOf("Description");
+                              if defn > -1
+                              else if desc > -1
+                                  td(contenteditable="true")
+                                      input(type="text" name="#{f}" value="#{task[f]}")
+                              else
+                                  td(contenteditable="true")
+                                      input(type="text" name="#{f}" value="#{task[f]}")
+                      td
+                          button(type="submit" name="#{task.id}" value="uButton") Update
+                      td
+                          button(type="submit" name="#{task.id}" onclick="#{task.completed}" value="dButton") Delete
+
+    hr
+
+  form.well(action="/addtask", method="post")
+    #container
+      label Add New Movie:
+      label Release Date:
+      input(id="id_date" name="releaseDate" type="date")
+      label Movie Name:
+      input(id="id_movie" name="movieName" type="textbox")
+      label Tags:
+      input(id="id_tags" name="tags" type="textbox")
+      label URL:
+      input(id="id_url" name="url" type="url")
+      label Actors:
+      input(id="id_actors" name="actors" type="textbox")
+      br
+     #fields
+    button.btn(id="add_custom" class="ui button" type="button" onclick="addFields()") Add extra fields
+    br
+    //input(id="id_index" type="hidden" name="indexValue" value="")
+    br
+    button(type="submit") Send

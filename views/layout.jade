@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    script(type='text/javascript').
+        var counter = 0;
+        function addFields() {
+            var container = document.getElementById("fields");
+
+            container.appendChild(document.createTextNode("Extra Field Definition:"));
+            container.appendChild(document.createElement("br"));
+            // Create an <input> element, set its type and name attributes
+            var input1 = document.createElement("input");
+            input1.type = "text";
+            input1.name = "extraFieldDefinition" + counter;
+            container.appendChild(input1);
+            // Append a line break
+            container.appendChild(document.createElement("br"));
+
+            container.appendChild(document.createTextNode("Extra Field Description:"));
+            container.appendChild(document.createElement("br"));
+            // Create an <input> element, set its type and name attributes
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "extraFieldDescription" + counter;
+            container.appendChild(input);
+            // Append a line break
+            container.appendChild(document.createElement("br"));
+            counter = counter + 1;
+
+        }
+
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      div.navbar-header
+        a.navbar-brand(href='#') Cloud Computing Homework 2
+    block content
+    script(src='//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js')
+    script(src='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/bootstrap.min.js')
